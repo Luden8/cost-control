@@ -1,0 +1,15 @@
+<button
+  class="bg-sky-600 text-slate-100 px-4 py-2 rounded-md flex items-center"
+  [ngClass]="{
+    'px-4': !icon,
+    'py-2': !icon,
+    'py-1': icon,
+    'px-2': icon,
+    'bg-sky-400': disabled,
+    'cursor-default': disabled
+  }"
+  [disabled]="disabled"
+  [type]="type"
+>
+  <ng-content></ng-content>
+</button>

@@ -1,0 +1,120 @@
+<div class="px-5">
+	<cost-control-container [fullHeight]="true">
+		<div class="py-8 h-full">
+			<div class="w-3/4 m-auto h-full flex">
+				<cost-control-card class="grow flex">
+					<div default class="flex grow relative overflow-y-auto">
+						<cost-control-list class="absolute inset-0">
+							<cost-control-list-item *ngFor="let transaction of transactions">
+								<cost-control-expand>
+									<div header-left class="flex items-center">
+										<span class="text-otext-ellipsis">
+											{{ transaction.title }}
+											<span>{{ transaction.date }}</span>
+										</span>
+										<span class="material-symbols-outlined ml-2">
+											expand_more
+										</span>
+									</div>
+									<div header-right class="ml-auto flex">
+										<cost-control-button
+											[icon]="true"
+											(click)="removeTransaction(transaction.id)"
+										>
+											<span class="material-symbols-outlined"> delete </span>
+										</cost-control-button>
+									</div>
+									<div>
+										{{ transaction.description }}
+									</div>
+								</cost-control-expand>
+							</cost-control-list-item>
+						</cost-control-list>
+					</div>
+					<div footer class="flex grow">
+						<form
+							[formGroup]="form"
+							(ngSubmit)="addTransaction()"
+							novalidate
+							class="grow flex flex-col"
+						>
+							<div class="mr-3 grow flex flex-col mb-4">
+								<cost-control-input
+									placeholder="Please, type the title of your transaction"
+									[fullWidth]="true"
+									class="mb-2"
+									formControlName="title"
+								></cost-control-input>
+								<cost-control-message
+									class="mb-2"
+									*ngIf="
+										form.get('title').hasError('required') &&
+										form.get('title').touched
+									"
+									type="error"
+								>
+									Please, specify transaction's title
+								</cost-control-message>
+								<cost-control-textarea
+									placeholder="Please, type the description on your transaction"
+									[fullWidth]="true"
+									[rows]="5"
+									class="mb-2"
+									formControlName="description"
+								>
+								</cost-control-textarea>
+								<cost-control-message
+									class="mb-2"
+									*ngIf="
+										form.get('description').hasError('required') &&
+										form.get('description').touched
+									"
+									type="error"
+								>
+									Please, specify transaction's description
+								</cost-control-message>
+								<div>
+									<cost-control-input
+										placeholder="Please, type the amount of your transaction"
+										class="mb-2 block"
+										formControlName="amount"
+										type="number"
+									></cost-control-input>
+									<cost-control-message
+										class="mb-2 block"
+										*ngIf="
+											form.get('amount').hasError('required') &&
+											form.get('amount').touched
+										"
+										type="error"
+									>
+										Please, specify transaction's amount
+									</cost-control-message>
+									<cost-control-input
+										type="date"
+										placeholder="Please, select the date of transaction"
+										formControlName="date"
+										class="block mb-2"
+									/>
+									<cost-control-message
+										class="mb-2 block"
+										*ngIf="
+											form.get('date').hasError('required') &&
+											form.get('date').touched
+										"
+										type="error"
+									>
+										Please, specify transaction's date
+									</cost-control-message>
+								</div>
+							</div>
+							<cost-control-button type="submit"
+								>Add transaction</cost-control-button
+							>
+						</form>
+					</div>
+				</cost-control-card>
+			</div>
+		</div>
+	</cost-control-container>
+</div>
